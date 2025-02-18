@@ -1,29 +1,57 @@
-import './App.css';
+import { BrowserRouter as Router, Link } from 'react-router-dom';
 
 function App() {
   return (
-    <>
-      <nav>
-        <ul>
-          <li><a href="#home">CheckPoint</a></li>
-          <li><a href="#about">Rólunk</a></li>
-          <li><a href="#contact">Kapcsolat</a></li>
-        </ul>
-      </nav>
-      <h1>Üdvözöljük a CheckPoint oldalán!</h1>
-      <section id="home">
-        <h2>Home</h2>
-        <p>Welcome to the CheckPoint system. This system is designed to help manage school entries efficiently and effectively.</p>
-      </section>
-      <section id="about">
-        <h2>Rólunk</h2>
-        <p>The CheckPoint system allows schools to track student entries and exits, ensuring a secure and organized environment.</p>
-      </section>
-      <section id="contact">
-        <h2>Kapcsolat</h2>
-        <p>For more information about the CheckPoint system, please contact us at info@checkpoint.com.</p>
-      </section>
-    </>
+    <Router>
+      <>
+        <header>
+          <nav>
+            <button
+              className="navbar-toggler"
+              type="button"
+              data-bs-toggle="collapse"
+              data-bs-target="#navbarNav"
+              aria-controls="navbarNav"
+              aria-expanded="false"
+              aria-label="Toggle navigation"
+            >
+              <span className="navbar-toggler-icon"></span>
+            </button>
+            <div className="collapse navbar-collapse" id="navbarNav">
+              <ul className="navbar-nav ml-auto">
+                <li className="nav-item">
+                  <Link className="nav-link" to="/about">Rólunk</Link>
+                </li>
+                <li className="nav-item">
+                  <Link className="nav-link" to="/contact">Kapcsolat</Link>
+                </li>
+              </ul>
+            </div>
+          </nav>
+        </header>
+
+        <main>
+          <section className="hero-section" id="home">
+            <div className="hero-overlay">
+              <h1>Üdvözöljük a CheckPoint oldalán!</h1>
+              <h2>Home</h2>
+              <p className="welcom-text">Welcome to the CheckPoint system. This system is designed to help manage school entries efficiently and effectively.</p>
+            </div>
+          </section>
+          <section id="about">
+            <h2>Rólunk</h2>
+            <p>The CheckPoint system allows schools to track student entries and exits, ensuring a secure and organized environment.</p>
+          </section>
+          <section id="contact">
+            <h2>Kapcsolat</h2>
+            <p>For more information about the CheckPoint system, please contact us at info@checkpoint.com.</p>
+          </section>
+        </main>
+        <footer>
+          <p>&copy; 2024 CheckPoint. Minden jog fenntartva</p>
+        </footer>
+      </>
+    </Router>
   );
 }
 
