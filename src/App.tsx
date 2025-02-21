@@ -1,11 +1,12 @@
-import { BrowserRouter as Router, Link } from 'react-router-dom';
+import { BrowserRouter, Router, NavLink } from 'react-router-dom';
 
 function App() {
   return (
     <Router>
       <>
         <header>
-          <nav>
+          <BrowserRouter>
+          <nav className='nav bg-dark p-2'>
             <button
               className="navbar-toggler"
               type="button"
@@ -19,6 +20,11 @@ function App() {
             </button>
             <div className="collapse navbar-collapse" id="navbarNav">
               <ul className="navbar-nav ml-auto">
+                <li>
+                  <NavLink className="nav-link text-white" to="/">
+                  CheckPoint
+                  </NavLink>
+                </li>
                 <li className="nav-item">
                   <Link className="nav-link" to="/about">Rólunk</Link>
                 </li>
@@ -28,6 +34,7 @@ function App() {
               </ul>
             </div>
           </nav>
+          </BrowserRouter>
         </header>
 
         <main>
