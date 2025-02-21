@@ -26,10 +26,10 @@ function App() {
                   </NavLink>
                 </li>
                 <li className="nav-item">
-                  <Link className="nav-link" to="/about">Rólunk</Link>
+                  <NavLink className="nav-link" to="/about">Rólunk</NavLink>
                 </li>
                 <li className="nav-item">
-                  <Link className="nav-link" to="/contact">Kapcsolat</Link>
+                  <NavLink className="nav-link" to="/contact">Kapcsolat</NavLink>
                 </li>
               </ul>
             </div>
