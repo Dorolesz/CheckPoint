@@ -1,9 +1,25 @@
-
+import { useEffect, useState } from "react";
 import { ArrowRight, Shield, Clock } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
+import apiClient from "../config/apiCliens";
 
 const HeroSection = () => {
+  const [heroData, setHeroData] = useState<{ title: string; description: string } | null>(null);
+
+  useEffect(() => {
+    const fetchHeroData = async () => {
+      try {
+        const response = await apiClient.get("/hero-data");
+        setHeroData(response.data);
+      } catch (error) {
+        console.error("Error fetching hero data:", error);
+      }
+    };
+
+    fetchHeroData();
+  }, []); // Az üres dependency array biztosítja, hogy csak egyszer fusson le
+
   return (
     <div className="hero-pattern relative overflow-hidden">
       <div className="absolute inset-0 bg-gradient-to-br from-primary/90 to-primary"></div>
@@ -11,10 +27,10 @@ const HeroSection = () => {
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
           <div className="animate-fadeIn">
             <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-white font-heading">
-              Intelligens beléptető rendszer a modern vállalkozásoknak
+              {heroData ? heroData.title : "Betöltés..."}
             </h1>
             <p className="mt-6 text-lg text-white/90 max-w-xl">
-              Az CheckPoint beléptető rendszerével biztosítsa épületei, irodái és létesítményei biztonságos hozzáférés-kezelését. Professzionális védelem, egyszerű használat.
+              {heroData ? heroData.description : "Adatok betöltése folyamatban..."}
             </p>
             <div className="mt-8 flex flex-col sm:flex-row gap-4">
               <Link to="/demo">
