@@ -20,12 +20,6 @@ const ContactCTA = () => {
                 Kapcsolat felvétele
               </Button>
             </Link>
-            <Link to="/quote">
-              <Button size="lg" className="w-full sm:w-auto bg-white text-primary hover:bg-gray-100">
-                Ajánlatkérés
-                <ArrowRight className="ml-2 h-4 w-4" />
-              </Button>
-            </Link>
           </div>
         </div>
       </div>

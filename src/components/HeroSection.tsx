@@ -27,10 +27,10 @@ const HeroSection = () => {
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
           <div className="animate-fadeIn">
             <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-white font-heading">
-              {heroData ? heroData.title : "Betöltés..."}
+            Intelligens beléptető rendszer a modern vállalkozásoknak
             </h1>
             <p className="mt-6 text-lg text-white/90 max-w-xl">
-              {heroData ? heroData.description : "Adatok betöltése folyamatban..."}
+            Az CheckPoint beléptető rendszerével biztosítsa épületei, irodái és létesítményei biztonságos hozzáférés-kezelését. Professzionális védelem, egyszerű használat.
             </p>
             <div className="mt-8 flex flex-col sm:flex-row gap-4">
               <Link to="/demo">
