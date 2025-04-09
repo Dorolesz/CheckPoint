@@ -1,73 +1,42 @@
-.about-container, .contact-container, .home-container, .download-container, .login-container {
-  padding: 20px;
-  max-width: 800px;
+#root {
+  max-width: 1280px;
   margin: 0 auto;
-  font-family: Arial, sans-serif;
-  background-color: #f9f9f9;
-  border-radius: 8px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-}
-
-.about-title, .contact-title, .home-title, .download-title, .login-title {
-  font-size: 2.5em;
-  margin-bottom: 20px;
-  text-align: center;
-  color: #333;
-}
-
-.about-description, .about-text, .about-contact, .contact-item, .home-description, .home-illustrations, .download-description {
-  font-size: 1.2em;
-  margin-bottom: 20px;
-  text-align: justify;
-  color: #555;
-}
-
-.home-subtitle, .download-subtitle {
-  font-size: 1.8em;
-  margin-top: 20px;
-  margin-bottom: 10px;
-  color: #333;
-}
-
-.home-list, .download-list {
-  list-style-type: none;
-  padding: 0;
-}
-
-.home-list li, .download-list li {
-  font-size: 1.2em;
-  margin-bottom: 10px;
-  color: #555;
-}
-
-.download-button, .login-button {
-  display: block;
-  width: 100%;
-  padding: 10px;
-  font-size: 1.2em;
-  color: #fff;
-  background-color: #007bff;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
+  padding: 2rem;
   text-align: center;
 }
 
-.download-button:hover, .login-button:hover {
-  background-color: #0056b3;
+.logo {
+  height: 6em;
+  padding: 1.5em;
+  will-change: filter;
+  transition: filter 300ms;
+}
+.logo:hover {
+  filter: drop-shadow(0 0 2em #646cffaa);
+}
+.logo.react:hover {
+  filter: drop-shadow(0 0 2em #61dafbaa);
 }
 
-.form-group {
-  margin-bottom: 15px;
+@keyframes logo-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
 }
 
-.form-group label {
-  display: block;
-  margin-bottom: 5px;
+@media (prefers-reduced-motion: no-preference) {
+  a:nth-of-type(2) .logo {
+    animation: logo-spin infinite 20s linear;
+  }
 }
 
-.form-group input {
-  width: 100%;
-  padding: 8px;
-  box-sizing: border-box;
+.card {
+  padding: 2em;
+}
+
+.read-the-docs {
+  color: #888;
 }
