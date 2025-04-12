@@ -1,8 +1,8 @@
 import axios from "axios";
-import API_BASE_URL from "@/config/api";
 
 const apiClient = axios.create({
-  baseURL: API_BASE_URL,
+  baseURL: "http://localhost:3000", // Backend alap URL
+  timeout: 10000, // Időtúllépés (opcionális)
   headers: {
     "Content-Type": "application/json",
   },

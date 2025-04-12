@@ -1,5 +1,4 @@
-
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -7,6 +6,10 @@ import { Label } from "@/components/ui/label";
 import { Checkbox } from "@/components/ui/checkbox";
 import { useToast } from "@/hooks/use-toast";
 import { EyeIcon, EyeOffIcon, Loader2 } from "lucide-react";
+import axios from "axios";
+import { useAuth } from "@/context/AuthContext";
+
+
 
 const LoginForm = () => {
   const [email, setEmail] = useState("");
@@ -16,10 +19,11 @@ const LoginForm = () => {
   const [isLoading, setIsLoading] = useState(false);
   const navigate = useNavigate();
   const { toast } = useToast();
+  const { login } = useAuth(); // AuthContext használata
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    
+
     if (!email || !password) {
       toast({
         title: "Hiba történt",
@@ -28,29 +32,38 @@ const LoginForm = () => {
       });
       return;
     }
-    
+
     setIsLoading(true);
-    
-    // Ez egy mockolt bejelentkezési folyamat, a valóságban itt API-hívás történne
-    setTimeout(() => {
-      // Siker esetén:
+
+    try {
+      const data = await axios.post("http://localhost:3000/auth/login", {
+        email,
+        password,
+      });
+
       toast({
         title: "Sikeres bejelentkezés!",
         description: "Üdvözöljük az CheckPoint rendszerben.",
       });
-      setIsLoading(false);
-      navigate("/dashboard");
-      
-      // Hiba esetén:
-      /*
+
+      // Token mentése
+      if (rememberMe) {
+        localStorage.setItem("token", data.data.accessToken);
+      } else {
+        sessionStorage.setItem("token", data.data.accessToken);
+      }
+
+      login(); // Állapot frissítése
+      navigate("/"); // Átirányítás a főoldalra
+    } catch (error: any) {
       toast({
         title: "Sikertelen bejelentkezés",
-        description: "Hibás e-mail cím vagy jelszó.",
+        description: error.response?.data?.message || "Hiba történt a bejelentkezés során.",
         variant: "destructive",
       });
+    } finally {
       setIsLoading(false);
-      */
-    }, 1500);
+    }
   };
 
   return (
@@ -59,21 +72,21 @@ const LoginForm = () => {
         <h2 className="text-2xl font-bold font-heading">Bejelentkezés</h2>
         <p className="text-gray-600 mt-2">Adja meg adatait a bejelentkezéshez</p>
       </div>
-      
+
       <form onSubmit={handleSubmit} className="space-y-4">
         <div className="space-y-2">
           <Label htmlFor="email">E-mail cím</Label>
-          <Input 
-            id="email" 
-            type="email" 
-            placeholder="pelda@email.hu" 
+          <Input
+            id="email"
+            type="email"
+            placeholder="pelda@email.hu"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
             required
             disabled={isLoading}
           />
         </div>
-        
+
         <div className="space-y-2">
           <div className="flex justify-between items-center">
             <Label htmlFor="password">Jelszó</Label>
@@ -82,18 +95,18 @@ const LoginForm = () => {
             </Link>
           </div>
           <div className="relative">
-            <Input 
-              id="password" 
+            <Input
+              id="password"
               type={showPassword ? "text" : "password"}
-              placeholder="••••••••" 
+              placeholder="••••••••"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
               required
               disabled={isLoading}
               className="pr-10"
             />
-            <button 
-              type="button" 
+            <button
+              type="button"
               onClick={() => setShowPassword(!showPassword)}
               className="absolute inset-y-0 right-0 flex items-center pr-3 text-gray-400 hover:text-gray-600"
               tabIndex={-1}
@@ -106,19 +119,19 @@ const LoginForm = () => {
             </button>
           </div>
         </div>
-        
+
         <div className="flex items-center space-x-2">
-          <Checkbox 
-            id="remember" 
-            checked={rememberMe} 
+          <Checkbox
+            id="remember"
+            checked={rememberMe}
             onCheckedChange={(checked: boolean) => setRememberMe(!!checked)}
             disabled={isLoading}
           />
           <Label htmlFor="remember" className="text-sm cursor-pointer">Emlékezz rám</Label>
         </div>
-        
-        <Button 
-          type="submit" 
+
+        <Button
+          type="submit"
           className="w-full"
           disabled={isLoading}
         >
@@ -129,7 +142,7 @@ const LoginForm = () => {
             </>
           ) : "Bejelentkezés"}
         </Button>
-        
+
         <div className="text-center text-sm">
           <span className="text-gray-600">Még nincs fiókja?</span>{" "}
           <Link to="/register" className="text-primary hover:underline font-medium">

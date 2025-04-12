@@ -5,6 +5,7 @@ import { Menu, X } from "lucide-react";
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
+  
 
   return (
     <nav className="bg-white border-b border-gray-200 sticky top-0 z-50">
@@ -72,6 +73,14 @@ const Navbar = () => {
           <Link to="/contact" className="block text-gray-700 hover:text-primary px-3 py-2 rounded-md text-sm font-medium">
             Kapcsolat
           </Link>
+          <div className="mt-4 space-y-2">
+            <Link to="/login">
+              <Button variant="outline" size="sm" className="w-full">Bejelentkezés</Button>
+            </Link>
+            <Link to="/register">
+              <Button size="sm" className="w-full">Regisztráció</Button>
+            </Link>
+          </div>
         </div>
       )}
     </nav>
