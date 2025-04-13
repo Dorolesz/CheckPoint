@@ -2,9 +2,12 @@ import { useState } from "react";
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Menu, X } from "lucide-react";
+import { useAuth } from "@/context/AuthContext";
+
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
+  const { isLoggedIn, logout } = useAuth();
   
 
   return (
@@ -36,18 +39,27 @@ const Navbar = () => {
             </Link>
           </div>
 
+          {/* Auth Buttons */}
           <div className="hidden md:flex md:items-center md:space-x-2">
-            <Link to="/login">
-              <Button variant="outline" size="sm">Bejelentkezés</Button>
-            </Link>
-            <Link to="/register">
-              <Button size="sm">Regisztráció</Button>
-            </Link>
+            {isLoggedIn ? (
+              <Button variant="outline" size="sm" onClick={logout}>
+                Kijelentkezés
+              </Button>
+            ) : (
+              <>
+                <Link to="/login">
+                  <Button variant="outline" size="sm">Bejelentkezés</Button>
+                </Link>
+                <Link to="/register">
+                  <Button size="sm">Regisztráció</Button>
+                </Link>
+              </>
+            )}
           </div>
           
           {/* Mobile menu button */}
           <div className="flex md:hidden items-center">
-            <button 
+            <button
               onClick={() => setIsOpen(!isOpen)}
               className="inline-flex items-center justify-center p-2 rounded-md text-gray-700 hover:text-primary hover:bg-gray-100"
             >
@@ -73,13 +85,22 @@ const Navbar = () => {
           <Link to="/contact" className="block text-gray-700 hover:text-primary px-3 py-2 rounded-md text-sm font-medium">
             Kapcsolat
           </Link>
+
           <div className="mt-4 space-y-2">
-            <Link to="/login">
-              <Button variant="outline" size="sm" className="w-full">Bejelentkezés</Button>
-            </Link>
-            <Link to="/register">
-              <Button size="sm" className="w-full">Regisztráció</Button>
-            </Link>
+            {isLoggedIn ? (
+              <Button variant="outline" size="sm" className="w-full" onClick={logout}>
+                Kijelentkezés
+              </Button>
+            ) : (
+              <>
+                <Link to="/login">
+                  <Button variant="outline" size="sm" className="w-full">Bejelentkezés</Button>
+                </Link>
+                <Link to="/register">
+                  <Button size="sm" className="w-full">Regisztráció</Button>
+                </Link>
+              </>
+            )}
           </div>
         </div>
       )}
