@@ -11,7 +11,7 @@ const HeroSection = () => {
     const fetchHeroData = async () => {
       try {
         const response = await apiClient.get("/"); // API endpoint a hero adatokhoz
-        setHeroData(response.data);
+        setHeroData(response.data); // Állapot frissítése a válasz alapján
       } catch (error) {
         console.error("Error fetching hero data:", error);
       }
@@ -27,10 +27,10 @@ const HeroSection = () => {
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
           <div className="animate-fadeIn">
             <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-white font-heading">
-            Intelligens beléptető rendszer a modern iskoláknak és vállalkozásoknak
+              {heroData?.title || "Intelligens beléptető rendszer a modern iskoláknak és vállalkozásoknak"}
             </h1>
             <p className="mt-6 text-lg text-white/90 max-w-xl">
-            Az CheckPoint beléptető rendszerével biztosítsa épületei, irodái és létesítményei biztonságos hozzáférés-kezelését. Professzionális védelem, egyszerű használat.
+              {heroData?.description || "Az CheckPoint beléptető rendszerével biztosítsa épületei, irodái és létesítményei biztonságos hozzáférés-kezelését. Professzionális védelem, egyszerű használat."}
             </p>
             <div className="mt-8 flex flex-col sm:flex-row gap-4">
               <Link to="/demo">

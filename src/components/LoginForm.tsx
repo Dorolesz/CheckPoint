@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -7,9 +7,6 @@ import { Checkbox } from "@/components/ui/checkbox";
 import { useToast } from "@/hooks/use-toast";
 import { EyeIcon, EyeOffIcon, Loader2 } from "lucide-react";
 import axios from "axios";
-import { useAuth } from "@/context/AuthContext";
-
-
 
 const LoginForm = () => {
   const [email, setEmail] = useState("");
@@ -19,7 +16,6 @@ const LoginForm = () => {
   const [isLoading, setIsLoading] = useState(false);
   const navigate = useNavigate();
   const { toast } = useToast();
-  const { login } = useAuth(); // AuthContext használata
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -36,7 +32,7 @@ const LoginForm = () => {
     setIsLoading(true);
 
     try {
-      const data = await axios.post("http://localhost:3000/auth/login", {
+      const response = await axios.post("http://localhost:3000/auth/login", {
         email,
         password,
       });
@@ -47,13 +43,13 @@ const LoginForm = () => {
       });
 
       // Token mentése
+      const token = response.data.access_token;
       if (rememberMe) {
-        localStorage.setItem("token", data.data.accessToken);
+        localStorage.setItem("token", token);
       } else {
-        sessionStorage.setItem("token", data.data.accessToken);
+        sessionStorage.setItem("token", token);
       }
 
-      login(); // Állapot frissítése
       navigate("/"); // Átirányítás a főoldalra
     } catch (error: any) {
       toast({
