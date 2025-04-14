@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { ArrowRight, Shield, Clock } from "lucide-react";
+import { Shield, Clock } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
 import apiClient from "../config/apiCliens";
@@ -33,12 +33,6 @@ const HeroSection = () => {
               {heroData?.description || "Az CheckPoint beléptető rendszerével biztosítsa épületei, irodái és létesítményei biztonságos hozzáférés-kezelését. Professzionális védelem, egyszerű használat."}
             </p>
             <div className="mt-8 flex flex-col sm:flex-row gap-4">
-              <Link to="/demo">
-                <Button size="lg" className="group">
-                  Ingyenes bemutató kérése
-                  <ArrowRight className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1" />
-                </Button>
-              </Link>
               <Link to="/download">
                 <Button variant="secondary" size="lg">
                   Alkalmazás letöltése

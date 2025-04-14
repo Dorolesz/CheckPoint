@@ -120,7 +120,7 @@ const LoginForm = () => {
         <div className="space-y-2">
           <div className="flex justify-between items-center">
             <Label htmlFor="password">Jelszó</Label>
-            <Link to="/forgot-password" className="text-sm text-primary hover:underline">
+            <Link to="/login" className="text-sm text-primary hover:underline">
               Elfelejtett jelszó?
             </Link>
           </div>

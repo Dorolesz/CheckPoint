@@ -196,7 +196,7 @@ const RegisterForm = () => {
             disabled={isLoading}
           />
           <Label htmlFor="terms" className="text-sm cursor-pointer">
-            Elfogadom a <Link to="/terms" className="text-primary hover:underline">felhasználási feltételeket</Link> és az <Link to="/privacy" className="text-primary hover:underline">adatkezelési tájékoztatót</Link>
+            Elfogadom a <Link to="/register" className="text-primary hover:underline">felhasználási feltételeket</Link> és az <Link to="/register" className="text-primary hover:underline">adatkezelési tájékoztatót</Link>
           </Label>
         </div>
 

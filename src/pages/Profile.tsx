@@ -1,4 +1,3 @@
-import React from "react";
 import { useAuth } from "@/context/AuthContext";
 import Navbar from "@/components/Navbar"; // Navbar importálása
 import Footer from "@/components/Footer"; // Footer importálása
