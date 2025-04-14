@@ -1,14 +1,23 @@
-import { useState } from "react";
-import { Link } from "react-router-dom";
+import { useState, useEffect } from "react";
+import { Link, useNavigate } from "react-router-dom"; // useNavigate importálása
 import { Button } from "@/components/ui/button";
 import { Menu, X } from "lucide-react";
 import { useAuth } from "@/context/AuthContext";
 
-
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
   const { isLoggedIn, logout } = useAuth();
-  
+  const navigate = useNavigate(); // Navigáció inicializálása
+
+  // Debugging: Ellenőrizd, hogy az `isLoggedIn` állapot változik-e
+  useEffect(() => {
+    console.log("isLoggedIn állapot változott:", isLoggedIn);
+  }, [isLoggedIn]);
+
+  const handleLogout = () => {
+    logout(); // Kijelentkezés
+    navigate("/login"); // Átirányítás a bejelentkezési oldalra
+  };
 
   return (
     <nav className="bg-white border-b border-gray-200 sticky top-0 z-50">
@@ -42,9 +51,14 @@ const Navbar = () => {
           {/* Auth Buttons */}
           <div className="hidden md:flex md:items-center md:space-x-2">
             {isLoggedIn ? (
-              <Button variant="outline" size="sm" onClick={logout}>
-                Kijelentkezés
-              </Button>
+              <>
+                <Link to="/profile" className="text-gray-700 hover:text-primary px-3 py-2 rounded-md text-sm font-medium">
+                  Profilom
+                </Link>
+                <Button variant="outline" size="sm" onClick={handleLogout}>
+                  Kijelentkezés
+                </Button>
+              </>
             ) : (
               <>
                 <Link to="/login">
@@ -56,7 +70,7 @@ const Navbar = () => {
               </>
             )}
           </div>
-          
+
           {/* Mobile menu button */}
           <div className="flex md:hidden items-center">
             <button
@@ -85,23 +99,25 @@ const Navbar = () => {
           <Link to="/contact" className="block text-gray-700 hover:text-primary px-3 py-2 rounded-md text-sm font-medium">
             Kapcsolat
           </Link>
-
-          <div className="mt-4 space-y-2">
-            {isLoggedIn ? (
-              <Button variant="outline" size="sm" className="w-full" onClick={logout}>
+          {isLoggedIn ? (
+            <>
+              <Link to="/profile" className="text-gray-700 hover:text-primary px-3 py-2 rounded-md text-sm font-medium">
+                Profilom
+              </Link>
+              <Button variant="outline" size="sm" onClick={handleLogout}>
                 Kijelentkezés
               </Button>
-            ) : (
-              <>
-                <Link to="/login">
-                  <Button variant="outline" size="sm" className="w-full">Bejelentkezés</Button>
-                </Link>
-                <Link to="/register">
-                  <Button size="sm" className="w-full">Regisztráció</Button>
-                </Link>
-              </>
-            )}
-          </div>
+            </>
+          ) : (
+            <>
+              <Link to="/login">
+                <Button variant="outline" size="sm">Bejelentkezés</Button>
+              </Link>
+              <Link to="/register">
+                <Button size="sm">Regisztráció</Button>
+              </Link>
+            </>
+          )}
         </div>
       )}
     </nav>

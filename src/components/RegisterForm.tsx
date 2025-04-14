@@ -43,7 +43,7 @@ const RegisterForm = () => {
       });
       return;
     }
-
+  
     if (formData.password !== formData.confirmPassword) {
       toast({
         title: "Hiba történt",
@@ -52,7 +52,7 @@ const RegisterForm = () => {
       });
       return;
     }
-
+  
     if (!acceptTerms) {
       toast({
         title: "Hiba történt",
@@ -61,23 +61,22 @@ const RegisterForm = () => {
       });
       return;
     }
-
+  
     setIsLoading(true);
-
+  
     try {
       // API hívás a regisztrációhoz
-      await axios.post("http://localhost:3000/auth/register", {
-        firstName: formData.firstName,
-        lastName: formData.lastName,
+      await axios.post("http://localhost:3000/register", {
+        name: `${formData.firstName} ${formData.lastName}`, // Név összeállítása
         email: formData.email,
         password: formData.password,
       });
-
+  
       toast({
         title: "Sikeres regisztráció!",
         description: "Fiókja létrehozva. Most már bejelentkezhet.",
       });
-
+  
       navigate("/login");
     } catch (error: any) {
       toast({

@@ -10,6 +10,7 @@ import Register from "./pages/Register";
 import Download from "./pages/Download";
 import Contact from "./pages/Contact";
 import About from "./pages/About";
+import Profile from "./pages/Profile";
 
 const queryClient = new QueryClient();
 
@@ -18,7 +19,7 @@ const App = () => (
     <TooltipProvider>
       <Toaster />
       <Sonner />
-      <AuthProvider> {/* AuthProvider hozzáadása */}
+      <AuthProvider>
         <BrowserRouter>
           <Routes>
             <Route path="/" element={<Index />} />
@@ -27,6 +28,7 @@ const App = () => (
             <Route path="/download" element={<Download />} />
             <Route path="/contact" element={<Contact />} />
             <Route path="/about" element={<About />} />
+            <Route path="/profile" element={<Profile />} /> {/* Új útvonal */}
           </Routes>
         </BrowserRouter>
       </AuthProvider>

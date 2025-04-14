@@ -9,18 +9,30 @@ import { EyeIcon, EyeOffIcon, Loader2 } from "lucide-react";
 import axios from "axios";
 
 const LoginForm = () => {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+  const [formData, setFormData] = useState({
+    email: "",
+    password: "",
+  });
   const [rememberMe, setRememberMe] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
+
   const navigate = useNavigate();
   const { toast } = useToast();
+  
 
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = e.target;
+    setFormData((prev) => ({
+      ...prev,
+      [name]: value,
+    }));
+  };
+  
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-
-    if (!email || !password) {
+  
+    if (!formData.email || !formData.password) {
       toast({
         title: "Hiba történt",
         description: "Kérjük töltse ki az összes mezőt!",
@@ -28,39 +40,58 @@ const LoginForm = () => {
       });
       return;
     }
-
-    setIsLoading(true);
+  
+    console.log("Elküldött adatok:", formData);
+    
 
     try {
       const response = await axios.post("http://localhost:3000/auth/login", {
-        email,
-        password,
+        email: formData.email,
+        password: formData.password,
       });
-
+  
+      const token = response.data.access_token;
+  
+  
+      console.log("Backend válasz:", response.data);
+  
       toast({
         title: "Sikeres bejelentkezés!",
         description: "Üdvözöljük az CheckPoint rendszerben.",
       });
+  
+      const userData = {
+        email: formData.email,
+        token: token,
+      };
 
       // Token mentése
-      const token = response.data.access_token;
       if (rememberMe) {
-        localStorage.setItem("token", token);
+        localStorage.setItem("user", JSON.stringify(userData));
       } else {
-        sessionStorage.setItem("token", token);
+        sessionStorage.setItem("user", JSON.stringify(userData));
       }
+  
+      console.log("localStorage user:", localStorage.getItem("user"));
+      console.log("sessionStorage user:", sessionStorage.getItem("user"));
+
+      toast({
+        title: "Sikeres bejelentkezés!",
+        description: "Üdvözöljük az CheckPoint rendszerben.",
+        duration: 5000,
+      });
 
       navigate("/"); // Átirányítás a főoldalra
-    } catch (error: any) {
-      toast({
-        title: "Sikertelen bejelentkezés",
-        description: error.response?.data?.message || "Hiba történt a bejelentkezés során.",
-        variant: "destructive",
-      });
-    } finally {
-      setIsLoading(false);
-    }
-  };
+  } catch (error: any) {
+    toast({
+      title: "Hiba a bejelentkezés során!",
+      description: error.response?.data?.message || "Ismeretlen hiba történt.",
+      duration: 5000,
+    });
+  } finally {
+    setIsLoading(false);
+  }
+};
 
   return (
     <div className="max-w-md w-full mx-auto">
@@ -74,10 +105,11 @@ const LoginForm = () => {
           <Label htmlFor="email">E-mail cím</Label>
           <Input
             id="email"
+            name="email"
             type="email"
             placeholder="pelda@email.hu"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
+            value={formData.email}
+            onChange={handleChange}
             required
             disabled={isLoading}
           />
@@ -91,29 +123,29 @@ const LoginForm = () => {
             </Link>
           </div>
           <div className="relative">
-            <Input
-              id="password"
-              type={showPassword ? "text" : "password"}
-              placeholder="••••••••"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-              required
-              disabled={isLoading}
-              className="pr-10"
-            />
-            <button
-              type="button"
-              onClick={() => setShowPassword(!showPassword)}
-              className="absolute inset-y-0 right-0 flex items-center pr-3 text-gray-400 hover:text-gray-600"
-              tabIndex={-1}
-            >
-              {showPassword ? (
-                <EyeOffIcon className="h-4 w-4" />
-              ) : (
-                <EyeIcon className="h-4 w-4" />
-              )}
-            </button>
-          </div>
+          <Input
+            id="password"
+            name="password"
+            type={showPassword ? "text" : "password"} // Dinamikus type
+            placeholder="••••••••"
+            value={formData.password}
+            onChange={handleChange}
+            required
+            disabled={isLoading}
+          />
+          <button
+            type="button"
+            onClick={() => setShowPassword(!showPassword)} // Állapot váltása
+            className="absolute inset-y-0 right-0 flex items-center pr-3 text-gray-400 hover:text-gray-600"
+            tabIndex={-1}
+          >
+            {showPassword ? (
+              <EyeOffIcon className="h-4 w-4" /> // Jelszó elrejtése ikon
+            ) : (
+              <EyeIcon className="h-4 w-4" /> // Jelszó megjelenítése ikon
+            )}
+          </button>
+        </div>
         </div>
 
         <div className="flex items-center space-x-2">
