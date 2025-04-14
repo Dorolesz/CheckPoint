@@ -42,8 +42,7 @@ const LoginForm = () => {
     }
   
     console.log("Elküldött adatok:", formData);
-    
-
+  
     try {
       const response = await axios.post("http://localhost:3000/auth/login", {
         email: formData.email,
@@ -51,7 +50,6 @@ const LoginForm = () => {
       });
   
       const token = response.data.access_token;
-  
   
       console.log("Backend válasz:", response.data);
   
@@ -64,7 +62,7 @@ const LoginForm = () => {
         email: formData.email,
         token: token,
       };
-
+  
       // Token mentése
       if (rememberMe) {
         localStorage.setItem("user", JSON.stringify(userData));
@@ -74,24 +72,28 @@ const LoginForm = () => {
   
       console.log("localStorage user:", localStorage.getItem("user"));
       console.log("sessionStorage user:", sessionStorage.getItem("user"));
-
+  
       toast({
         title: "Sikeres bejelentkezés!",
         description: "Üdvözöljük az CheckPoint rendszerben.",
         duration: 5000,
       });
-
-      navigate("/"); // Átirányítás a főoldalra
-  } catch (error: any) {
-    toast({
-      title: "Hiba a bejelentkezés során!",
-      description: error.response?.data?.message || "Ismeretlen hiba történt.",
-      duration: 5000,
-    });
-  } finally {
-    setIsLoading(false);
-  }
-};
+  
+      // Navigáció a főoldalra, majd újratöltés
+      navigate("/");
+      setTimeout(() => {
+        window.location.reload();
+      }, 100); // Kis késleltetés az újratöltés előtt
+    } catch (error: any) {
+      toast({
+        title: "Hiba a bejelentkezés során!",
+        description: error.response?.data?.message || "Ismeretlen hiba történt.",
+        duration: 5000,
+      });
+    } finally {
+      setIsLoading(false);
+    }
+  };
 
   return (
     <div className="max-w-md w-full mx-auto">
