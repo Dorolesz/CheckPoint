@@ -65,9 +65,8 @@ const RegisterForm = () => {
     setIsLoading(true);
   
     try {
-      // API hívás a regisztrációhoz
       await axios.post("http://localhost:3000/register", {
-        name: `${formData.firstName} ${formData.lastName}`, // Név összeállítása
+        name: `${formData.firstName} ${formData.lastName}`,
         email: formData.email,
         password: formData.password,
       });

@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { Link, useNavigate } from "react-router-dom"; // useNavigate importálása
+import { Link, useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Menu, X } from "lucide-react";
 import { useAuth } from "@/context/AuthContext";
@@ -7,16 +7,15 @@ import { useAuth } from "@/context/AuthContext";
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
   const { isLoggedIn, logout } = useAuth();
-  const navigate = useNavigate(); // Navigáció inicializálása
+  const navigate = useNavigate();
 
-  // Debugging: Ellenőrizd, hogy az `isLoggedIn` állapot változik-e
   useEffect(() => {
     console.log("isLoggedIn állapot változott:", isLoggedIn);
   }, [isLoggedIn]);
 
   const handleLogout = () => {
-    logout(); // Kijelentkezés
-    navigate("/login"); // Átirányítás a bejelentkezési oldalra
+    logout();
+    navigate("/login");
   };
 
   return (

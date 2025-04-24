@@ -28,7 +28,7 @@ const App = () => (
             <Route path="/download" element={<Download />} />
             <Route path="/contact" element={<Contact />} />
             <Route path="/about" element={<About />} />
-            <Route path="/profile" element={<Profile />} /> {/* Új útvonal */}
+            <Route path="/profile" element={<Profile />} /> {}
           </Routes>
         </BrowserRouter>
       </AuthProvider>

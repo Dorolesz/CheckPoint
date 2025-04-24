@@ -63,7 +63,6 @@ const LoginForm = () => {
         token: token,
       };
   
-      // Token mentése
       if (rememberMe) {
         localStorage.setItem("user", JSON.stringify(userData));
       } else {
@@ -79,11 +78,10 @@ const LoginForm = () => {
         duration: 5000,
       });
   
-      // Navigáció a főoldalra, majd újratöltés
       navigate("/");
       setTimeout(() => {
         window.location.reload();
-      }, 100); // Kis késleltetés az újratöltés előtt
+      }, 100);
     } catch (error: any) {
       toast({
         title: "Hiba a bejelentkezés során!",
@@ -128,7 +126,7 @@ const LoginForm = () => {
           <Input
             id="password"
             name="password"
-            type={showPassword ? "text" : "password"} // Dinamikus type
+            type={showPassword ? "text" : "password"}
             placeholder="••••••••"
             value={formData.password}
             onChange={handleChange}
@@ -137,14 +135,14 @@ const LoginForm = () => {
           />
           <button
             type="button"
-            onClick={() => setShowPassword(!showPassword)} // Állapot váltása
+            onClick={() => setShowPassword(!showPassword)}
             className="absolute inset-y-0 right-0 flex items-center pr-3 text-gray-400 hover:text-gray-600"
             tabIndex={-1}
           >
             {showPassword ? (
-              <EyeOffIcon className="h-4 w-4" /> // Jelszó elrejtése ikon
+              <EyeOffIcon className="h-4 w-4" />
             ) : (
-              <EyeIcon className="h-4 w-4" /> // Jelszó megjelenítése ikon
+              <EyeIcon className="h-4 w-4" />
             )}
           </button>
         </div>

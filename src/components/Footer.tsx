@@ -17,7 +17,7 @@ const Footer = () => {
               Professzionális beléptető rendszerek és hozzáférés-kezelési megoldások minden méretű vállalkozás számára.
             </p>
             <div className="flex space-x-4">
-              <a href="#" className="text-gray-400 hover:text-white">
+              <a href="www.RedibleIncredible" className="text-gray-400 hover:text-white">
                 <Facebook className="h-5 w-5" />
               </a>
               <a href="#" className="text-gray-400 hover:text-white">
@@ -44,7 +44,7 @@ const Footer = () => {
             <ul className="space-y-3">
               <li className="flex items-start">
                 <Mail className="h-5 w-5 text-gray-400 mr-2 mt-0.5" />
-                <span className="text-gray-400">info@CheckPoint.hu</span>
+                <span className="text-gray-400">info@redible.com</span>
               </li>
               <li className="flex items-start">
                 <Phone className="h-5 w-5 text-gray-400 mr-2 mt-0.5" />
@@ -60,7 +60,7 @@ const Footer = () => {
 
         <div className="border-t border-gray-800 mt-10 pt-6">
           <p className="text-gray-500 text-sm text-center">
-            © {new Date().getFullYear()} CheckPoint Kft. Minden jog fenntartva.
+            © {new Date().getFullYear()} Redible Inc. Minden jog fenntartva.
           </p>
         </div>
       </div>

@@ -10,15 +10,15 @@ const HeroSection = () => {
   useEffect(() => {
     const fetchHeroData = async () => {
       try {
-        const response = await apiClient.get("/"); // API endpoint a hero adatokhoz
-        setHeroData(response.data); // Állapot frissítése a válasz alapján
+        const response = await apiClient.get("/");
+        setHeroData(response.data);
       } catch (error) {
         console.error("Error fetching hero data:", error);
       }
     };
 
     fetchHeroData();
-  }, []); // Az üres dependency array biztosítja, hogy csak egyszer fusson le
+  }, []);
 
   return (
     <div className="hero-pattern relative overflow-hidden">

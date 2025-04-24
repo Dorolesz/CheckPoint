@@ -15,7 +15,6 @@ const DesktopDownload = () => {
   const handleDownload = (platform: string) => {
     setIsLoading(true);
 
-    // Szimuláljuk a letöltést
     setTimeout(() => {
       toast({
         title: "Letöltés elindult!",
@@ -58,7 +57,6 @@ const DesktopDownload = () => {
           </div>
         </div>
 
-        {/* macOS verzió */}
         <div className="bg-white border rounded-lg p-6 shadow-sm hover:shadow-md transition-shadow">
           <div className="flex flex-col items-center text-center">
             <div className="w-16 h-16 bg-gray-100 rounded-full flex items-center justify-center mb-4">
