@@ -3,13 +3,14 @@ import React, { createContext, useContext, useState, useEffect } from 'react';
 interface User {
   name?: string;
   email: string;
+  organization?: string;
   role?: string;
   token: string;
 }
 
 interface AuthContextType {
   user: User | null;
-  isLoggedIn: boolean; // Új állapot
+  isLoggedIn: boolean;
   login: (email: string, password: string, rememberMe: boolean) => Promise<void>;
   logout: () => void;
 }
