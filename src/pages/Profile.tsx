@@ -23,12 +23,6 @@ const Profile = () => {
               <h3 className="text-lg font-semibold text-gray-700">E-mail cím:</h3>
               <p className="text-gray-600">{user.email}</p>
             </div>
-            /*
-            <div>
-              <h3 className="text-lg font-semibold text-gray-700">Intézmény/Cég:</h3>
-              <p className="text-gray-600">{user.organization}</p>
-            </div>
-             */
             <div>
               <h3 className="text-lg font-semibold text-gray-700">Szerepkör:</h3>
               <p className="text-gray-600">{user.role}</p>

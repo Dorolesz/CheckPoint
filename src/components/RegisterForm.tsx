@@ -12,7 +12,6 @@ const RegisterForm = () => {
   const [formData, setFormData] = useState({
     firstName: "",
     lastName: "",
-    organization: "",
     email: "",
     password: "",
     confirmPassword: "",
@@ -67,7 +66,6 @@ const RegisterForm = () => {
     try {
       await axios.post("http://localhost:3000/register", {
         name: `${formData.firstName} ${formData.lastName}`,
-        organization: formData.organization,
         email: formData.email,
         password: formData.password,
       });
@@ -122,18 +120,6 @@ const RegisterForm = () => {
               disabled={isLoading}
             />
           </div>
-        </div>
-
-        <div className="space-y-2">
-          <Label htmlFor="organization">Cég vagy Intézmény neve</Label>
-          <Input
-            id="organization"
-            name="organization"
-            placeholder="Redible Inc."
-            value={formData.organization}
-            required
-            disabled={isLoading}
-          ></Input>
         </div>
 
         <div className="space-y-2">

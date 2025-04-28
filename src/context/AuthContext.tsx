@@ -3,7 +3,6 @@ import React, { createContext, useContext, useState, useEffect } from 'react';
 interface User {
   name?: string;
   email: string;
-  organization?: string;
   role?: string;
   token: string;
 }
