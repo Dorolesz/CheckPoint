@@ -10,7 +10,7 @@ const Navbar = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    console.log("isLoggedIn állapot változott:", isLoggedIn);
+    console.log("isLoggedIn állapot:", isLoggedIn);
   }, [isLoggedIn]);
 
   const handleLogout = () => {

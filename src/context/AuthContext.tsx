@@ -22,46 +22,48 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
   useEffect(() => {
     const storedUser = localStorage.getItem("user") || sessionStorage.getItem("user");
     if (storedUser) {
-      console.log("Betöltött felhasználó:", JSON.parse(storedUser));
       setUser(JSON.parse(storedUser));
     }
-    console.log("AuthContext user (useEffect):", user);
-    console.log("AuthContext isLoggedIn (useEffect):", isLoggedIn);
   }, []);
 
   const login = async (email: string, password: string, rememberMe: boolean) => {
-    const res = await fetch('/api/login', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ email, password }),
-    });
-    const data = await res.json();
-    if (!res.ok) throw new Error(data.message || 'Login failed');
-  
-    const userData = {
-      name: data.name,
-      email: data.email,
-      role: data.role,
-      token: data.token,
-    };
-  
-    if (rememberMe) {
-      localStorage.setItem('user', JSON.stringify(userData));
-    } else {
-      sessionStorage.setItem('user', JSON.stringify(userData));
+    try {
+      const response = await fetch('/auth/login', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email, password }),
+      });
+
+      if (!response.ok) {
+        throw new Error('Bejelentkezés sikertelen');
+      }
+
+      const data = await response.json();
+
+      const userData = {
+        name: data.name,
+        email: data.email,
+        role: data.role || 'Felhasználó',
+        token: data.access_token,
+      };
+
+      if (rememberMe) {
+        localStorage.setItem('user', JSON.stringify(userData));
+      } else {
+        sessionStorage.setItem('user', JSON.stringify(userData));
+      }
+
+      setUser(userData);
+    } catch (error) {
+      console.error('Hiba történt a bejelentkezés során:', error);
+      throw error;
     }
-  
-    setUser(userData);
-    console.log("AuthContext user (login):", userData);
-    console.log("AuthContext isLoggedIn (login):", !!userData);
   };
 
   const logout = () => {
     localStorage.removeItem('user');
     sessionStorage.removeItem('user');
     setUser(null);
-    console.log("AuthContext user (logout):", null);
-    console.log("AuthContext isLoggedIn (logout):", false);
   };
 
   const isLoggedIn = !!user;
@@ -72,7 +74,6 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
     </AuthContext.Provider>
   );
 };
-
 
 export const useAuth = (): AuthContextType => {
   const context = useContext(AuthContext);
