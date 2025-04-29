@@ -17,7 +17,7 @@ const Footer = () => {
               Professzionális beléptető rendszerek és hozzáférés-kezelési megoldások minden méretű vállalkozás számára.
             </p>
             <div className="flex space-x-4">
-              <a href="www.RedibleIncredible" className="text-gray-400 hover:text-white">
+              <a href="#" className="text-gray-400 hover:text-white">
                 <Facebook className="h-5 w-5" />
               </a>
               <a href="#" className="text-gray-400 hover:text-white">
