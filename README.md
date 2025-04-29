@@ -51,6 +51,7 @@ A rendszer célja egy beléptetési rendszer prototípusának megvalósítása m
 ## ⚙️ Telepítés / Futtatás
 
 🔹 Frontend
+
 Klónozás:
 git clone https://github.com/Dorolesz/CheckPoint_Frontend.git
 
@@ -64,7 +65,9 @@ Fejlesztői szerver indítása:
 npm run dev
 ____________
 🔹 Backend
-git clone 
+
+Klónozás:
+git clone https://github.com/ChillG-Sanchez/CheckPoint_Backend.git
 
 Könyvtárváltás:
 cd CheckPoint_Backend
