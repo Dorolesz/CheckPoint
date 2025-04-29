@@ -1,4 +1,6 @@
 import { useState } from "react";
+import { useAuth } from "@/context/AuthContext";
+import { useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
@@ -10,9 +12,15 @@ import Footer from "@/components/Footer";
 
 const DesktopDownload = () => {
   const { toast } = useToast();
+  const { isLoggedIn } = useAuth();
+  const navigate = useNavigate();
   const [isLoading, setIsLoading] = useState(false);
 
   const handleDownload = (platform: string) => {
+    if (!isLoggedIn) {
+      navigate("/login");
+      return;
+    }
     setIsLoading(true);
 
     setTimeout(() => {

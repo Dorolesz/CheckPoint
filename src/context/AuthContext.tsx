@@ -39,7 +39,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
     if (!res.ok) throw new Error(data.message || 'Login failed');
   
     const userData = {
-      name: data.name, // A név hozzáadása
+      name: data.name,
       email: data.email,
       role: data.role,
       token: data.token,
@@ -51,7 +51,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
       sessionStorage.setItem('user', JSON.stringify(userData));
     }
   
-    setUser(userData); // Frissítjük a `user` állapotot
+    setUser(userData);
     console.log("AuthContext user (login):", userData);
     console.log("AuthContext isLoggedIn (login):", !!userData);
   };
@@ -59,7 +59,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
   const logout = () => {
     localStorage.removeItem('user');
     sessionStorage.removeItem('user');
-    setUser(null); // A `user` állapotot null-ra állítjuk
+    setUser(null);
     console.log("AuthContext user (logout):", null);
     console.log("AuthContext isLoggedIn (logout):", false);
   };
