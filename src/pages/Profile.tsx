@@ -24,7 +24,7 @@ const Profile = () => {
               </div>
               <div>
                 <h3 className="text-lg font-semibold text-gray-700">Role:</h3>
-                <p className="text-gray-600">{user?.role || 'Nincs név megadva'}</p>
+                <p className="text-gray-600">{user?.role || 'Nincs role megadva'}</p>
               </div>
             </div>
           )}

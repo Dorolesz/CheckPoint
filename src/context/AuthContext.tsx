@@ -1,9 +1,10 @@
+// AuthContext.tsx
 import React, { createContext, useContext, useState, useEffect } from 'react';
 
 interface User {
-  name?: string;
+  name: string | null;
   email: string;
-  role?: string;
+  role: string;
   token: string;
 }
 
@@ -40,8 +41,8 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
 
       const data = await response.json();
 
-      const userData = {
-        name: data.name,
+      const userData: User = {
+        name: data.name || null,
         email: data.email,
         role: data.role || 'Felhasználó',
         token: data.access_token,
