@@ -1,50 +1,107 @@
-# React + TypeScript + Vite
+# 🛠️ Fejlesztői dokumentáció – CheckPoint
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+**Projekt neve:** CheckPoint  
+**Készítők neve:** Csillag Csaba, Nagy Dorina Laura
 
-Currently, two official plugins are available:
+---
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## 🎯 Cél
 
-## Expanding the ESLint configuration
+Funkcionális, reszponzív webalkalmazás, amely az alábbi core funkciókat valósítja meg:
+- Felhasználói regisztráció és hitelesítés (JWT)
+- Bejelentkezés / kijelentkezés
+- Főoldal / tartalom letöltése
+- Kapcsolatfelvétel űrlap
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
+A rendszer célja egy beléptetési rendszer prototípusának megvalósítása modern technológiákkal.
 
-- Configure the top-level `parserOptions` property like this:
+---
 
-```js
-export default tseslint.config({
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-})
-```
+## 🧰 Fejlesztői környezet
 
-- Replace `tseslint.configs.recommended` to `tseslint.configs.recommendedTypeChecked` or `tseslint.configs.strictTypeChecked`
-- Optionally add `...tseslint.configs.stylisticTypeChecked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and update the config:
+- **IDE:** Visual Studio Code  
+- **Verziókövetés:** Git + GitHub  
+- **API-tesztelés:** Flashpost  
+- **Konfiguráció:** `.env` alapú környezetkezelés (`DATABASE_URL`, `SECRET_KEY` stb.)
 
-```js
-// eslint.config.js
-import react from 'eslint-plugin-react'
+---
 
-export default tseslint.config({
-  // Set the react version
-  settings: { react: { version: '18.3' } },
-  plugins: {
-    // Add the react plugin
-    react,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended rules
-    ...react.configs.recommended.rules,
-    ...react.configs['jsx-runtime'].rules,
-  },
-})
-```
+## 💻 Frontend Technológiai stack
+
+- React (w/ Vite)  
+- TypeScript  
+- React Router  
+- Tailwind CSS  
+- Lucide Icons  
+- Fetch API (async kommunikáció)
+
+---
+
+## 🖥️ Backend Technológiai stack
+
+- NestJS (TypeScript alapú REST API)  
+- MySQL (relációs adatbázis)  
+- Prisma ORM  
+- JWT (authentikáció)  
+- Argon2 (jelszóhash-elés)  
+- Swagger – automatikus API dokumentáció (`/api` endpointon)
+
+---
+
+## ⚙️ Telepítés / Futtatás
+
+🔹 Frontend
+
+Klónozás:
+git clone https://github.com/Dorolesz/CheckPoint_Frontend.git
+
+Könyvtárváltás:
+cd CheckPoint_Frontend
+
+Függőségek telepítése:
+npm install
+
+Fejlesztői szerver indítása:
+npm run dev
+____________
+🔹 Backend
+
+Klónozás:
+git clone https://github.com/ChillG-Sanchez/CheckPoint_Backend.git
+
+Könyvtárváltás:
+cd CheckPoint_Backend
+
+Függőségek telepítése:
+npm install
+
+.env fájl létrehozása a projekt gyökerében az alábbi tartalommal:
+
+DATABASE_URL="mysql://root@localhost:3306/CheckPoint"
+SECRET_KEY="yourSuperSecretKey"
+
+Adatbázis migráció és feltöltés:
+Migráció:
+npx prisma migrate dev --name init
+
+Seedelés (adatfeltöltés):
+npx prisma db seed
+
+vagy alternatív megoldásként:
+npx ts-node prisma/seed.ts
+
+Backend indítása:
+npm run start:dev
+
+## 🔒 Auth és biztonság
+JWT token alapú authentikáció
+
+Hash-elés: Argon2
+
+Role alapú jogosultságkezelés – előkészítve későbbi bővítéshez
+
+## 📘 Swagger API dokumentáció
+A teljes backend API dokumentáció elérhető böngészőben:
+👉 http://localhost:3000/api
+(NestJS Swagger integrációval)
+
