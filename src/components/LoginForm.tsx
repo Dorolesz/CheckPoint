@@ -6,7 +6,7 @@ import { Label } from "@/components/ui/label";
 import { Checkbox } from "@/components/ui/checkbox";
 import { useToast } from "@/hooks/use-toast";
 import { EyeIcon, EyeOffIcon, Loader2 } from "lucide-react";
-import axios from "axios";
+import { useAuth } from "@/context/AuthContext";
 
 const LoginForm = () => {
   const [formData, setFormData] = useState({
@@ -19,7 +19,7 @@ const LoginForm = () => {
 
   const navigate = useNavigate();
   const { toast } = useToast();
-  
+  const { login } = useAuth();
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
@@ -28,10 +28,10 @@ const LoginForm = () => {
       [name]: value,
     }));
   };
-  
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-  
+
     if (!formData.email || !formData.password) {
       toast({
         title: "Hiba történt",
@@ -40,44 +40,18 @@ const LoginForm = () => {
       });
       return;
     }
-  
-    console.log("Elküldött adatok:", formData);
-  
+
+    setIsLoading(true);
+
     try {
-      const response = await axios.post("http://localhost:3000/auth/login", {
-        email: formData.email,
-        password: formData.password,
-      });
-  
-      const token = response.data.access_token;
-  
-      console.log("Backend válasz:", response.data);
-  
-      toast({
-        title: "Sikeres bejelentkezés!",
-        description: "Üdvözöljük az CheckPoint rendszerben.",
-      });
-  
-      const userData = {
-        email: formData.email,
-        token: token,
-      };
-  
-      if (rememberMe) {
-        localStorage.setItem("user", JSON.stringify(userData));
-      } else {
-        sessionStorage.setItem("user", JSON.stringify(userData));
-      }
-  
-      console.log("localStorage user:", localStorage.getItem("user"));
-      console.log("sessionStorage user:", sessionStorage.getItem("user"));
-  
+      await login(formData.email, formData.password, rememberMe);
+
       toast({
         title: "Sikeres bejelentkezés!",
         description: "Üdvözöljük az CheckPoint rendszerben.",
         duration: 5000,
       });
-  
+
       navigate("/");
       setTimeout(() => {
         window.location.reload();
@@ -85,7 +59,7 @@ const LoginForm = () => {
     } catch (error: any) {
       toast({
         title: "Hiba a bejelentkezés során!",
-        description: error.response?.data?.message || "Ismeretlen hiba történt.",
+        description: error.message || "Ismeretlen hiba történt.",
         duration: 5000,
       });
     } finally {
@@ -123,29 +97,29 @@ const LoginForm = () => {
             </Link>
           </div>
           <div className="relative">
-          <Input
-            id="password"
-            name="password"
-            type={showPassword ? "text" : "password"}
-            placeholder="••••••••"
-            value={formData.password}
-            onChange={handleChange}
-            required
-            disabled={isLoading}
-          />
-          <button
-            type="button"
-            onClick={() => setShowPassword(!showPassword)}
-            className="absolute inset-y-0 right-0 flex items-center pr-3 text-gray-400 hover:text-gray-600"
-            tabIndex={-1}
-          >
-            {showPassword ? (
-              <EyeOffIcon className="h-4 w-4" />
-            ) : (
-              <EyeIcon className="h-4 w-4" />
-            )}
-          </button>
-        </div>
+            <Input
+              id="password"
+              name="password"
+              type={showPassword ? "text" : "password"}
+              placeholder="••••••••"
+              value={formData.password}
+              onChange={handleChange}
+              required
+              disabled={isLoading}
+            />
+            <button
+              type="button"
+              onClick={() => setShowPassword(!showPassword)}
+              className="absolute inset-y-0 right-0 flex items-center pr-3 text-gray-400 hover:text-gray-600"
+              tabIndex={-1}
+            >
+              {showPassword ? (
+                <EyeOffIcon className="h-4 w-4" />
+              ) : (
+                <EyeIcon className="h-4 w-4" />
+              )}
+            </button>
+          </div>
         </div>
 
         <div className="flex items-center space-x-2">
@@ -158,11 +132,7 @@ const LoginForm = () => {
           <Label htmlFor="remember" className="text-sm cursor-pointer">Emlékezz rám</Label>
         </div>
 
-        <Button
-          type="submit"
-          className="w-full"
-          disabled={isLoading}
-        >
+        <Button type="submit" className="w-full" disabled={isLoading}>
           {isLoading ? (
             <>
               <Loader2 className="mr-2 h-4 w-4 animate-spin" />

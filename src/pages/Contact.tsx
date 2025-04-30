@@ -5,6 +5,16 @@ import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 
 const Contact = () => {
+  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault(); // Az alapértelmezett űrlapküldés megakadályozása
+
+    // Felugró üzenet
+    alert("Az üzenet sikeresen elküldve!");
+
+    // Konzolüzenet
+    console.log("Kapcsolatfelvételi űrlap sikeresen elküldve!");
+  };
+
   return (
     <div className="flex flex-col min-h-screen">
       <Navbar />
@@ -15,7 +25,7 @@ const Contact = () => {
             <p className="text-gray-600 mb-8">
               Ha bármilyen kérdése van, vagy további információra van szüksége, kérjük, töltse ki az alábbi űrlapot, és hamarosan felvesszük Önnel a kapcsolatot.
             </p>
-            <form className="space-y-6">
+            <form className="space-y-6" onSubmit={handleSubmit}>
               <div className="space-y-2">
                 <label htmlFor="name" className="block text-sm font-medium text-gray-700">
                   Név

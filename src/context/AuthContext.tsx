@@ -1,10 +1,9 @@
-// AuthContext.tsx
 import React, { createContext, useContext, useState, useEffect } from 'react';
 
 interface User {
-  name: string | null;
+  name?: string;
   email: string;
-  role: string;
+  role?: string;
   token: string;
 }
 
@@ -28,37 +27,29 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
   }, []);
 
   const login = async (email: string, password: string, rememberMe: boolean) => {
-    try {
-      const response = await fetch('/auth/login', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ email, password }),
-      });
+    const res = await fetch('http://localhost:3000/auth/login', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ email, password }),
+    });
+    const data = await res.json();
+    console.log("BACKEND VÁLASZ:", data);
+    if (!res.ok) throw new Error(data.message || 'Login failed');
 
-      if (!response.ok) {
-        throw new Error('Bejelentkezés sikertelen');
-      }
+    const userData = {
+      name: data.name,
+      email: data.email,
+      role: data.role,
+      token: data.token,
+    };
 
-      const data = await response.json();
-
-      const userData: User = {
-        name: data.name || null,
-        email: data.email,
-        role: data.role || 'Felhasználó',
-        token: data.access_token,
-      };
-
-      if (rememberMe) {
-        localStorage.setItem('user', JSON.stringify(userData));
-      } else {
-        sessionStorage.setItem('user', JSON.stringify(userData));
-      }
-
-      setUser(userData);
-    } catch (error) {
-      console.error('Hiba történt a bejelentkezés során:', error);
-      throw error;
+    if (rememberMe) {
+      localStorage.setItem('user', JSON.stringify(userData));
+    } else {
+      sessionStorage.setItem('user', JSON.stringify(userData));
     }
+
+    setUser(userData);
   };
 
   const logout = () => {
