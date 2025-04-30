@@ -80,14 +80,10 @@ npm install
 DATABASE_URL="mysql://root@localhost:3306/CheckPoint"
 SECRET_KEY="yourSuperSecretKey"
 
-Adatbázis migráció és feltöltés:
-Migráció:
-npx prisma migrate dev --name init
+Adatbázis feltöltés:
+npx prisma db push
 
 Seedelés (adatfeltöltés):
-npx prisma db seed
-
-vagy alternatív megoldásként:
 npx ts-node prisma/seed.ts
 
 Backend indítása:
