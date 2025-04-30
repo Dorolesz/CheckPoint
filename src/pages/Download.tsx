@@ -23,6 +23,8 @@ const DesktopDownload = () => {
     }
     setIsLoading(true);
 
+    console.log(`Letöltés elindult a ${platform} platform számára.`);
+
     setTimeout(() => {
       toast({
         title: "Letöltés elindult!",
