@@ -100,4 +100,5 @@ Role alapú jogosultságkezelés – előkészítve későbbi bővítéshez
 A teljes backend API dokumentáció elérhető böngészőben:
 👉 http://localhost:3000/api
 (NestJS Swagger integrációval)
+A Backendnek futnia kell!!
 
